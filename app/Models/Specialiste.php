@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+use App\Models\Specialite;
+
+class Specialiste extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['nom', 'postnom', 'prenom', 'adresse'];
+
+    public function specialte(){
+        return $this->belongsTo(Specialite::class);
+    }
+}
