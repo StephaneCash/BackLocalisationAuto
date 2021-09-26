@@ -25,7 +25,7 @@ class SpecialitesController extends Controller
 
     public function show($id)
     {
-        $specialites = Specialite::findOrFail($id);
+        $specialites = Specialite::findOrFail($id); // Récupérer les données d'un id
         return response()->json($specialites);
     }
 
