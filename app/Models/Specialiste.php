@@ -11,6 +11,7 @@ class Specialiste extends Model
 {
     use HasFactory;
 
+    // Champs qui peuvent être modifiés
     protected $fillable = ['nom', 'postnom', 'prenom', 'adresse'];
 
     public function specialte(){
