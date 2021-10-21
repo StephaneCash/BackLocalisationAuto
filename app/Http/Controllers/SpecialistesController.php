@@ -7,7 +7,8 @@ use App\Models\Specialiste;
 
 class SpecialistesController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $specialiste = Specialiste::with('specialte')->get();
         return response()->json($specialiste);
     }
@@ -19,6 +20,7 @@ class SpecialistesController extends Controller
         $specialiste->postnom = $request->postnom;
         $specialiste->prenom = $request->prenom;
         $specialiste->adresse = $request->adresse;
+        $specialiste->description = $request->description;
         $specialiste->specialite_id = $request->specialite_id;
 
         $specialiste->save();
@@ -38,13 +40,15 @@ class SpecialistesController extends Controller
         $specialiste->postnom = $request->postnom;
         $specialiste->prenom = $request->prenom;
         $specialiste->adresse = $request->adresse;
+        $specialiste->description = $request->description;
         $specialiste->specialite_id = $request->specialite_id;
 
         $specialiste->save();
         return response()->json($specialiste);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $specialiste = Specialiste::findOrFail($id);
         $specialiste->delete();
         return response()->json($specialiste);
