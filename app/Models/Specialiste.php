@@ -12,7 +12,7 @@ class Specialiste extends Model
     use HasFactory;
 
     // Champs qui peuvent être modifiés
-    protected $fillable = ['nom', 'postnom', 'prenom', 'adresse', 'description'];
+    protected $fillable = ['nom', 'postnom', 'prenom', 'adresse', 'description', 'telephone', 'image'];
 
     public function specialte()
     {

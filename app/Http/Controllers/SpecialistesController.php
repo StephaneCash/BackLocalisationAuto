@@ -21,6 +21,8 @@ class SpecialistesController extends Controller
         $specialiste->prenom = $request->prenom;
         $specialiste->adresse = $request->adresse;
         $specialiste->description = $request->description;
+        $specialiste->telephone = $request->telephone;
+        $specialiste->image = $request->image;
         $specialiste->specialite_id = $request->specialite_id;
 
         $specialiste->save();
@@ -41,6 +43,8 @@ class SpecialistesController extends Controller
         $specialiste->prenom = $request->prenom;
         $specialiste->adresse = $request->adresse;
         $specialiste->description = $request->description;
+        $specialiste->telephone = $request->telephone;
+        $specialiste->image = $request->image;
         $specialiste->specialite_id = $request->specialite_id;
 
         $specialiste->save();
