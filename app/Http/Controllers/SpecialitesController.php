@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Specialite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SpecialitesController extends Controller
 {
     public function index()
     {
-        $specialites = Specialite::with('specialistes')->get();
+        $specialites = DB::select('SELECT * FROM specialites, specialistes, specialistesSpecialites
+             WHERE specialistesSpecialites.id_specialite =  specialites.id_specialite 
+             AND specialistes.id_specialiste = specialistesSpecialites.id_specialiste');
         return response()->json($specialites);
     }
 
@@ -39,7 +42,8 @@ class SpecialitesController extends Controller
         return response()->json($specialite);
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $specialite = Specialite::findOrFail($id);
         $specialite->delete();
         return response()->json($specialite);
