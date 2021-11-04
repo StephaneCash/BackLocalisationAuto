@@ -46,30 +46,35 @@ class SpecialistesController extends Controller
 
     public function show($id)
     {
-        $specialiste = Specialiste::findOrFail($id);
+        $specialiste = DB::select("SELECT * FROM specialistes where id_specialiste = '$id'");
         return response()->json($specialiste);
     }
 
     public function update(Request $request, $id)
     {
-        $specialiste = Specialiste::findOrFail($id);
-        $specialiste->nom = $request->nom;
-        $specialiste->postnom = $request->postnom;
-        $specialiste->prenom = $request->prenom;
-        $specialiste->adresse = $request->adresse;
-        $specialiste->description = $request->description;
-        $specialiste->telephone = $request->telephone;
-        $specialiste->image = $request->image;
-        $specialiste->specialite_id = $request->specialite_id;
+        $nom_specialiste = $request->nom_specialiste;
+        $postnom_specialiste = $request->postnom_specialiste;
+        $prenom_specialiste = $request->prenom_specialiste;
+        $telephone_specialiste = $request->telephone;
 
-        $specialiste->save();
+        $nom_specialite = $request->nom_specialite;
+        $description_specialite = $request->description_specialite;
+
+        $specialiste = DB::update("UPDATE specialistes SET
+            nom_specialiste='$nom_specialiste', postnom_specialiste='$postnom_specialiste', 
+            prenom_specialiste='$prenom_specialiste', telephone='$telephone_specialiste'
+            WHERE id_specialiste='$id'
+            ");
+
+        DB::update("UPDATE specialites SET 
+            nom_specialite='$nom_specialite', description_specialite='$description_specialite'");
         return response()->json($specialiste);
     }
 
     public function destroy($id)
     {
-        $specialiste = Specialiste::findOrFail($id);
-        $specialiste->delete();
+
+        $specialiste = DB::delete("DELETE FROM specialistes WHERE id_specialiste='$id'");
         return response()->json($specialiste);
     }
 }
