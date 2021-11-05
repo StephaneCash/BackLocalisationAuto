@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Specialiste;
+use App\Models\Garage;
 
 class Specialite extends Model
 {
@@ -13,8 +13,8 @@ class Specialite extends Model
 
     protected $fillable = ['nom', 'description'];
 
-    public function specialistes()
+    public function garages()
     {
-        return $this->hasMany(Specialiste::class);
+        return $this->belongsToMany(Garage::class);
     }
 }

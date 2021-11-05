@@ -12,7 +12,7 @@ class GaragesController extends Controller
 {
     public function index()
     {
-        $garage = Garage::with('specialistes')->get();
+        $garage = Garage::with('specialistes', 'specialites')->get();
         return response()->json($garage);
     }
 
