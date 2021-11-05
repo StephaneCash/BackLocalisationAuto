@@ -14,9 +14,10 @@ class CreateSpecialistesTable extends Migration
             $table->string('nom');
             $table->string('postnom');
             $table->string('prenom');
-            $table->string('adresse');
+            $table->string('telephone');
 
-            $table->foreignId('specialite_id')->constrained();
+            $table->unsignedBigInteger('garage_id');
+            $table->foreign('garage_id')->references('id')->on('garages');
         });
     }
 

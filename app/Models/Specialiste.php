@@ -4,18 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use App\Models\Specialite;
+use App\Models\Garage;
 
 class Specialiste extends Model
 {
     use HasFactory;
 
-    // Champs qui peuvent être modifiés
     protected $fillable = ['nom', 'postnom', 'prenom', 'adresse', 'description', 'telephone', 'image'];
 
-    public function specialte()
+    public function garage()
     {
-        return $this->belongsTo(Specialite::class);
+        return $this->belongsTo(Garage::class);
     }
 }

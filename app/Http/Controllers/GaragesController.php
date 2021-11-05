@@ -2,45 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Garage;
+use App\Models\Specialiste;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class GaragesController extends Controller
 {
     public function index()
     {
-        $specialiste = DB::select('SELECT * FROM garages, specialites, garagesSpecialites
-             WHERE garagesSpecialites.id_garage =  garages.id_garage
-             AND specialites.id_specialite = garagesSpecialites.id_specialite
-             ');
-        return response()->json($specialiste);
+        $garage = Garage::with('specialistes')->get();
+        return response()->json($garage);
     }
 
     public function store(Request $request)
     {
-        $adresse_garage = $request->adresse_garage;
-        $nom_garage = $request->nom_garage;
-        $latitude = $request->latitude;
-        $longitude = $request->longitude;
-        $description_garage = $request->description_garage;
+        $garage = new Garage;
 
-        $nom_specialite = $request->nom_specialite;
-        $description_specialite = $request->description_specialite;
+        $garage->nom = $request->nom;
+        $garage->adresse = $request->adresse;
+        $garage->description = $request->description;
+        $garage->latitude = $request->latitude;
+        $garage->longitude = $request->longitude;
 
-        $garages = DB::insert("INSERT INTO garages 
-            (adresse_garage, nom_garage, latitude, longitude, description_garage) 
-            VALUES('$adresse_garage', '$nom_garage', '$latitude', '$longitude', '$description_garage')");
+        $garage->save();
+        return response()->json($garage);
+    }
 
-        $id_garage = DB::table('garages')->max('id_garage');
+    public function show($id)
+    {
+        $garage = Garage::findOrFail($id); // Récupérer les données d'un id
+        return response()->json($garage);
+    }
 
-        DB::insert("INSERT INTO specialites (nom_specialite, description_specialite)
-                VALUES('$nom_specialite', '$description_specialite')");
+    public function update(Request $request, $id)
+    {
+        $garage = Garage::findOrFail($id);
 
-        $id_specialite = DB::table('specialites')->max('id_specialite');
+        $garage->nom = $request->nom;
+        $garage->adresse = $request->adresse;
+        $garage->description = $request->description;
+        $garage->latitude = $request->latitude;
+        $garage->longitude = $request->longitude;
 
-        DB::insert("INSERT INTO garagesSpecialites(id_specialite, id_garage) 
-            VALUES('$id_specialite', '$id_garage')");
+        $garage->save();
+        return response()->json($garage);
+    }
 
-        return response()->json($garages);
+    public function destroy($id)
+    {
+        $garage = Garage::findOrFail($id);
+        $garage->delete();
+        return response()->json($garage);
     }
 }
