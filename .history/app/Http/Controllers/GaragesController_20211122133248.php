@@ -26,14 +26,6 @@ class GaragesController extends Controller
         $garage->latitude = $request->latitude;
         $garage->longitude = $request->longitude;
 
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() .'.'.$extension;
-            $file->move('img/'.$filename);
-            $garage->image = 'img/'.$filename;
-        }
-
         $garage->save();
         return response()->json($garage);
     }

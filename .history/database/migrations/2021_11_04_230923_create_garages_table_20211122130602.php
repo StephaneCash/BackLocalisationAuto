@@ -16,8 +16,7 @@ class CreateGaragesTable extends Migration
             $table->text('description');
             $table->double('latitude');
             $table->double('longitude');
-            $table->string('marque_vehicule');
-            $table->string('image');
+            $table->string('marque_vehicule')
         });
     }
 

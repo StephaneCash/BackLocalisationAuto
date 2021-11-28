@@ -6,7 +6,8 @@ use App\Models\Garage;
 use App\Models\Specialiste;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\
+
 
 class GaragesController extends Controller
 {
@@ -25,14 +26,7 @@ class GaragesController extends Controller
         $garage->description = $request->description;
         $garage->latitude = $request->latitude;
         $garage->longitude = $request->longitude;
-
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time() .'.'.$extension;
-            $file->move('img/'.$filename);
-            $garage->image = 'img/'.$filename;
-        }
+        $garage->marque_vehicule = $request->marque_vehicule('file');
 
         $garage->save();
         return response()->json($garage);

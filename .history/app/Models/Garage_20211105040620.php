@@ -11,7 +11,7 @@ class Garage extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'adresse', 'description', 'latitude', 'longitude', 'marque_vehicule', 'image'];
+    protected $fillable = ['nom', 'adresse', 'description', 'latitude', 'longitude'];
 
     public function specialistes()
     {

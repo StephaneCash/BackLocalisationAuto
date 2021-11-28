@@ -30,8 +30,7 @@ class GaragesController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = time() .'.'.$extension;
-            $file->move('img/'.$filename);
-            $garage->image = 'img/'.$filename;
+            
         }
 
         $garage->save();
