@@ -7,7 +7,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('register', App\Http\Controllers\AuthController::class)->except(['create', 'edit']);
+Route::post('login', [App\Http\Controllers\AuthController::class, 'login']);
+
+Route::post('register', [App\Http\Controllers\AuthController::class, 'register']);
 
 Route::resource('specialistes', App\Http\Controllers\SpecialistesController::class)->except(['create', 'edit']);
 

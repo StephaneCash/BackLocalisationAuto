@@ -16,12 +16,12 @@ class AuthController extends Controller
         return response()->json($user);
     }
 
-    public function store(Request $request)
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'noms' => 'required|max:191',
             'email' => 'required|email|max:191|unique:users,email',
-            'username' => 'required',
+            'username' => 'required|unique:users,username',
             'password' => 'required|min:8',
         ]);
 
@@ -45,6 +45,38 @@ class AuthController extends Controller
                 'token' => $token,
                 'message' => "Enregistrement de l'utilisateur avec succès",
             ]);
+        }
+    }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->messages(),
+            ]);
+        } else {
+            $user = User::where('username', $request->username)->first();
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'Informations non valides',
+                ]);
+            } else {
+                $token = $user->createToken($user->email . '_Token')->plainTextToken;
+
+                return response()->json([
+                    'status' => 200,
+                    'username' => $user->noms,
+                    'token' => $token,
+                    'message' => "Vous êtes connecté",
+                ]);
+            }
         }
     }
 }
