@@ -10,9 +10,7 @@ class SpecialitesController extends Controller
 {
     public function index()
     {
-        $specialites = DB::select('SELECT * FROM specialites, specialistes, specialistesSpecialites
-             WHERE specialistesSpecialites.id_specialite =  specialites.id_specialite 
-             AND specialistes.id_specialiste = specialistesSpecialites.id_specialiste');
+        $specialites = Specialite::with('garages')->get();
         return response()->json($specialites);
     }
 
