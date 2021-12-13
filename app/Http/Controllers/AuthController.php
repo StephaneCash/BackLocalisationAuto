@@ -73,10 +73,20 @@ class AuthController extends Controller
                 return response()->json([
                     'status' => 200,
                     'username' => $user->noms,
+                    'rôle' => $user->role,
                     'token' => $token,
                     'message' => "Vous êtes connecté",
                 ]);
             }
         }
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Déconnexion avec succès',
+        ]);
     }
 }
