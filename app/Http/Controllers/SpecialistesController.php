@@ -16,6 +16,15 @@ class SpecialistesController extends Controller
 
     public function store(Request $request)
     {
+        $specialiste = new Specialiste;
+
+        $specialiste->nom = $request->nom;
+        $specialiste->postnom = $request->postnom;
+        $specialiste->prenom = $request->prenom;
+        $specialiste->telephone = $request->telephone;
+
+        $specialiste->save();
+        return response()->json($specialiste);
     }
 
     public function show($id)
