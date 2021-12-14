@@ -22,6 +22,7 @@ class SpecialistesController extends Controller
         $specialiste->postnom = $request->postnom;
         $specialiste->prenom = $request->prenom;
         $specialiste->telephone = $request->telephone;
+        $specialiste->adresse = $request->adresse;
 
         $specialiste->save();
         return response()->json($specialiste);
