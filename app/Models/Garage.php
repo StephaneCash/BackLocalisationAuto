@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Specialiste;
 use App\Models\Specialite;
+use App\Models\Commune;
 
 class Garage extends Model
 {
@@ -21,5 +22,10 @@ class Garage extends Model
     public function specialites()
     {
         return $this->belongsToMany(Specialite::class);
+    }
+
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class);
     }
 }
